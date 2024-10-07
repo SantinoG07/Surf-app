@@ -1,0 +1,21 @@
+/* src/styles/global.css */
+body {
+    background-color: black;
+    color: white; /* Color de texto por defecto */
+    font-family: Arial, sans-serif; /* Fuente por defecto */
+}
+
+h1, h2, h3 {
+    margin: 0; /* Eliminar márgenes por defecto */
+}
+
+a {
+    color: #4A90E2; /* Color de enlaces */
+    text-decoration: none; /* Eliminar subrayado de enlaces */
+}
+
+button {
+    cursor: pointer; /* Cambiar cursor al pasar por encima de botones */
+}
+
+/* Agrega más estilos globales según sea necesario */

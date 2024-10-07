@@ -1,6 +1,8 @@
 <script>
 import Sidebar from '../lib/sidebar.svelte';
+import body from '../lib/body.svelte'
 </script>
 
-
-    <Sidebar></Sidebar>
+<body>
+<Sidebar></Sidebar>
+</body>
