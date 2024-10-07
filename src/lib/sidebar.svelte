@@ -1,7 +1,4 @@
-<script>
-    import { onMount } from 'svelte';
-  
-  </script>
+
   <style>
     .button {
         background-color: #2A2A2A;
@@ -36,17 +33,17 @@
     
 </style>
   
-  <aside class="h-screen ml-0 pl-0" style="width: 28vw; background-color: #2A2A2A; padding-top: 2vw;" id="sidebar">
-      <button id="toggle-button" class="button">
+  <aside class="" style="width: 28vw; background-color: #2A2A2A; padding-top: 2vw;">
+      <button class="button">
           <img alt="Icono" src="./avanzado.svg" style="height: 3vw; display: inline-block; padding-right: 3vw;"/>
           <div class="text-container">Avanzado</div>
       </button>
       <button class="button">
-          <img alt="Icono" src="./static/principal.svg" style="height: 3vw; display: inline-block; padding-right: 3vw; "/>
+          <img alt="Icono" src="principal.svg" style="height: 3vw; display: inline-block; padding-right: 3vw; "/>
           <div class="text-container">Principal</div>
       </button>
       <button class="button">
-          <img alt="Icono" src=".../static/mapa.svg" style="height: 3vw; display: inline-block; padding-right: 3vw; "/>
+          <img alt="Icono" src="mapa.svg" style="height: 3vw; display: inline-block; padding-right: 3vw; "/>
           <div class="text-container">Mapa</div>
       </button>
       <button class="button">
