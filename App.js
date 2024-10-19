@@ -1,26 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Button,
-  TouchableHighlight,
-} from "react-native";
+import { StyleSheet, View} from "react-native";
+import WeatherCard from "./components/weathercard"
 
-const icon = require("./assets/icon.png");
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <TouchableHighlight
-        underlayColor={"#09f"}
-        onPress={() => (alert = "Chau")}
-      >
-        <Text style={{ color: "white" }}>Otro Aqui</Text>
-      </TouchableHighlight>
-    </View>
+      <View>
+      <StatusBar style="light" />
+      <WeatherCard />
+      </View>
   );
 }
 
