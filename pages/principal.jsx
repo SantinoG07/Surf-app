@@ -10,15 +10,14 @@ const Principal = () => {
       <Weathercard/>
       <Citycard/>
       <StatusBar style="light" />
-      <Cityselection/>
+      <Cityselection />
     </View>
   );
 };
 
 
 const styles = StyleSheet.create({
-  weather:{
-  }
+ 
 });
 
 export default Principal;

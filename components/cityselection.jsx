@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         height: 52,
         borderRadius: 25,
         padding: 15,
+        marginTop: 10
       },
     ciudad:{
         paddingLeft:19,
