@@ -1,13 +1,20 @@
 import { StatusBar } from "expo-status-bar";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet} from "react-native";
+import Weathercard from "../components/weathercard"
 
 const Principal = () => {
   return (
     <View>
-      <Text>Página Principal</Text>
+      <Weathercard style={styles.weather}/>
       <StatusBar style="light" />
     </View>
   );
 };
+
+
+const styles = StyleSheet.create({
+  weather:{
+  }
+});
 
 export default Principal;
