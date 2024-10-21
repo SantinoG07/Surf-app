@@ -1,26 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View} from "react-native";
-
+import { StyleSheet, View } from "react-native";
 import 'react-native-gesture-handler';
 
-
-
-export function Lugares() {
+const Lugares = () => {
   return (
-      <View>
+    <View>
       <StatusBar style="light" />
-      </View>
+    </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#2a2a2a",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  Textos: {
-    color: "white",
-  },
-});
+export default Lugares;
