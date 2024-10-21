@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { View, Text, StyleSheet} from "react-native";
-import Weathercard from "../components/weathercard"
+import Weathercard from "../components/weathercard";
+import Citycard from "../components/citycard"
 
 const Principal = () => {
   return (
     <View>
-      <Weathercard style={styles.weather}/>
+      <Weathercard/>
+      <Citycard/>
       <StatusBar style="light" />
     </View>
   );
