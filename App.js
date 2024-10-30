@@ -11,6 +11,7 @@ import Mapa from "./pages/mapa";
 import Lugares from "./pages/lugares";
 import Avanzado from "./pages/avanzado";
 
+
 const Menu = createDrawerNavigator();
 
 const CustomDrawerContent = ({ navigation }) => {
