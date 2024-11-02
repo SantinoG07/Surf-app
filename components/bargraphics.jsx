@@ -24,37 +24,44 @@ const chartConfig = {
   backgroundGradientFrom: "rgba(129, 129, 129, 0.5)",
   backgroundGradientTo: "rgba(129, 129, 129, 0.5)",
   color: (opacity = 1) => `rgba(30, 111, 199, ${opacity})`,
-  labelColor: (opacity = 11) => `rgba(255, 255, 255, ${opacity})`,
+  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   propsForLabels: {
-    fontSize: '12',
+    // Establecer el tamaño de fuente a 0 para ocultar las etiquetas de datos
+    fontSize: '0', // Oculta las etiquetas de datos
   },
   propsForHorizontalLabels: {
-    opacity: 0, 
+    fontSize:'12',
+    opacity: 1,
   },
-  barPercentage: 0.1, 
+  propsForVerticalLabels: {
+    fontSize:'12',
+    opacity: 1,
+  },
+  barPercentage: 0.1,
 };
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.legendContainer}>
-        <View style={styles.legendItem}>
-          <View style={[styles.colorBox, { backgroundColor: '#1e6fc7' }]} />
-          <Text style={[{ color: '#0000' }]}>Agua</Text>
-        </View>
-        <View style={styles.legendItem}>
-          <View style={[styles.colorBox, { backgroundColor: '#868686' }]} />
-          <Text style={styles.legendText}>Aire</Text>
+      <View style={styles.chartContainer}>
+        <StackedBarChart
+          data={data}
+          width={400}
+          height={220}
+          chartConfig={chartConfig}
+          style={styles.chart}
+        />
+        <View style={styles.legendContainer}>
+          <View style={styles.legendItem}>
+            <View style={[styles.colorBox, { backgroundColor: '#1e6fc7' }]} />
+            <Text style={styles.legendText}>Agua</Text>
+          </View>
+          <View style={styles.legendItem}>
+            <View style={[styles.colorBox, { backgroundColor: '#868686' }]} />
+            <Text style={styles.legendText}>Aire</Text>
+          </View>
         </View>
       </View>
-
-      <StackedBarChart
-        data={data}
-        width={400}
-        height={220}
-        chartConfig={chartConfig}
-        style={styles.chart}
-      />
     </View>
   );
 };
@@ -67,24 +74,34 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingTop: 100,
   },
+  chartContainer: {
+    position: 'relative',
+    alignItems: 'center',
+  },
   legendContainer: {
     flexDirection: 'row',
-    marginBottom: 10, 
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    padding: 5,
+    borderRadius: 5,
   },
   legendItem: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 15,
+    alignItems: 'center', 
+    marginRight: 10,
   },
   colorBox: {
-    borderRadius:100,
     width: 7,
     height: 7,
+    borderRadius: 100,
     marginRight: 5,
+    marginTop: 1,
   },
   legendText: {
-    color: '#0000',
-    fontSize:12,
+    color: 'white',
+    fontSize: 12,
+    lineHeight: 12,
   },
   chart: {
     marginVertical: 10,
