@@ -1,5 +1,3 @@
-// api/weatherApi.js
-
 import axios from 'axios';
 
 const apiKey = 'e3ca4788ae9a4b04b5a170108241810';
