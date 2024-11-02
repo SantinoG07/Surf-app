@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import getWeather from '../api/weatherApi';
 
+const ciudad = 'São Paulo'; // Nombre correcto de la ciudad
 
 const App = () => {
-    const citycard = [
-      {
-        ciudad: 'Buenos Aires',
-        temperature: "30"
+  const[DatosClima, SetDatosClima] = useState({ciudad:ciudad, temperature:''});
+  
+  useEffect(()=> {
+    const fetchClima = async () => {
+      const data = await getWeather(ciudad);
 
-      },
-    ];
+      if(data){
+        SetDatosClima({
+          ciudad:data.location.name,
+          temperature:data.current.temp_c
+        });
+      }
+    };
+    fetchClima();
+  },[])
+
 
 
 
@@ -32,12 +43,7 @@ const Citycard = ({ ciudad, temperature}) => {
     <View style={styles.view}>
         
         
-      {citycard.map((data) => (
-        <Citycard
-        ciudad={data.ciudad}
-        temperature={data.temperature}
-        />
-      ))}
+      <Citycard ciudad={DatosClima.ciudad} temperature={DatosClima.temperature} />
     </View>
   );
 };
