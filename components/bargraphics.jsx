@@ -26,8 +26,8 @@ const chartConfig = {
   color: (opacity = 1) => `rgba(30, 111, 199, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   propsForLabels: {
-    // Establecer el tamaño de fuente a 0 para ocultar las etiquetas de datos
-    fontSize: '0', // Oculta las etiquetas de datos
+    
+    fontSize: '0', 
   },
   propsForHorizontalLabels: {
     fontSize:'12',
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
-    paddingTop: 100,
   },
   chartContainer: {
     position: 'relative',
