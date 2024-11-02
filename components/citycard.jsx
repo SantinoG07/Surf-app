@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import getWeather from '../api/weatherApi';
 
-const ciudad = 'São Paulo'; // Nombre correcto de la ciudad
+const ciudad = 'São Paulo'; 
 
 const App = () => {
   const[DatosClima, SetDatosClima] = useState({ciudad:ciudad, temperature:''});
