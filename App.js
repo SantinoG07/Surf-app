@@ -70,10 +70,18 @@ const CustomDrawerContent = ({ navigation }) => {
 
 export default function App() {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{backgroundColor:'#2a2a2a', flex:1}}>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Menu.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Menu.Navigator 
+          drawerContent={(props) => <CustomDrawerContent {...props} />} 
+          screenOptions={{
+            drawerStyle: { backgroundColor: '#282828' },
+            headerStyle: { backgroundColor: '#3f3f3f' },  // Cambia el color del encabezado aquí
+            headerTintColor: 'white', // Cambia el color del texto en el encabezado
+            headerShadowVisible: false,  
+          }}
+        >
           <Menu.Screen name="Principal" component={Principal} />
           <Menu.Screen name="Avanzado" component={Avanzado} />
           <Menu.Screen name="Lugares" component={Lugares} />
@@ -93,7 +101,7 @@ const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
     paddingTop: 120,
-    backgroundColor: "#2a2a2a",
+    backgroundColor: "#3f3f3f",
     alignItems: 'center',
   },
   drawerItem: {

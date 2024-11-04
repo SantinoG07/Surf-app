@@ -3,19 +3,18 @@ import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Weathercard from '../components/weathercard';
 import Citycard from '../components/citycard';
-import PointGraphics from '../components/pointgraphics';
-import Cityselection from '../components/cityselection';
+import App from '../components/pointgraphics';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
-const SPACING = (width - CARD_WIDTH) / 2;
+const SPACING = (width - CARD_WIDTH) / 4;
 
 const Principal = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const components = [
-    { Component: Weathercard, key: 'weather' },
     { Component: Citycard, key: 'city1' },
+    { Component: Weathercard, key: 'weather' },
     { Component: Citycard, key: 'city2' },
   ];
 
@@ -50,7 +49,9 @@ const Principal = () => {
           </View>
         ))}
       </ScrollView>
+      <App/>
     </View>
+
   );
 };
 
@@ -59,9 +60,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#3f3f3f'
   },
   scrollView: {
     paddingHorizontal: SPACING,
+    marginTop: -460,
+    marginBottom:-340
   },
   cardContainer: {
     width: CARD_WIDTH,

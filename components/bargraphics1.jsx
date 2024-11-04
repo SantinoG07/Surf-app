@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#353535',
+    backgroundColor: 'rgba(53,53,53,1.000)',
   },
   chartContainer: {
 

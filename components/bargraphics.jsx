@@ -21,8 +21,8 @@ const data = {
 };
 
 const chartConfig = {
-  backgroundGradientFrom: "rgba(129, 129, 129, 0.5)",
-  backgroundGradientTo: "rgba(129, 129, 129, 0.5)",
+  backgroundGradientFrom: "rgba(53,53,53,1.000)",
+  backgroundGradientTo: "rgba(53,53,53,1.000)",
   color: (opacity = 1) => `rgba(30, 111, 199, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   propsForLabels: {
