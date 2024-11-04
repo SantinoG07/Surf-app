@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import CitySelection from '../components/cityselection';
 import SearchBar from '../components/searchbar';
-
 const App = () => {
   const initialCitySelection = [
     { ciudad: 'Buenos Aires' },
