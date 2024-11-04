@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import getWeather from '../api/weatherApi';
 
-const ciudad='Denm'
+const ciudad='New York'
 const App = () => {
   const[DatosClima, SetDatosClima] = useState({ciudad:ciudad, temperature:'', icon:''});
   

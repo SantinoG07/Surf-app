@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Weathercard from '../components/weathercard';
 import Citycard from '../components/citycard';
-import App from '../components/pointgraphics';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
 const SPACING = (width - CARD_WIDTH) / 4;
 
 const Principal = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const components = [
-    { Component: Citycard, key: 'city1' },
-    { Component: Weathercard, key: 'weather' },
-    { Component: Citycard, key: 'city2' },
+  const [activeIndex, setActiveIndex] = useState(1); 
+  const cards = [
+    { type: 'city', key: 'city1' },
+    { type: 'weather', key: 'weather' },
+    { type: 'city', key: 'city2' },
   ];
+  
+  const scrollViewRef = useRef(null);
+
+  useEffect(() => {
+    
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ x: CARD_WIDTH, animated: false });
+    }
+  }, []);
 
   const handleScroll = (event) => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
@@ -28,6 +35,7 @@ const Principal = () => {
     <View style={styles.container}>
       <StatusBar style="light" />
       <ScrollView
+        ref={scrollViewRef}
         horizontal
         pagingEnabled
         contentContainerStyle={styles.scrollView}
@@ -35,8 +43,9 @@ const Principal = () => {
         snapToAlignment="center"
         onScroll={handleScroll}
         scrollEventThrottle={100}
+        showsHorizontalScrollIndicator={false}
       >
-        {components.map(({ Component, key }, index) => (
+        {cards.map(({ type, key }, index) => (
           <View
             key={key}
             style={[
@@ -45,13 +54,11 @@ const Principal = () => {
                 transform: [{ scale: index === activeIndex ? 1 : 0.9 }] }
             ]}
           >
-            <Component />
+            {type === 'weather' ? <Weathercard /> : <Citycard />}
           </View>
         ))}
       </ScrollView>
-      <App/>
     </View>
-
   );
 };
 
@@ -65,7 +72,7 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingHorizontal: SPACING,
     marginTop: -460,
-    marginBottom:-340
+    marginBottom: -340
   },
   cardContainer: {
     width: CARD_WIDTH,
