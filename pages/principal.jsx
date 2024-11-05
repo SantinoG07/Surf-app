@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions, Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import WeatherCard from '../components/weathercard'; // Asegúrate de que la ruta sea correcta
 import CityCard from '../components/citycard';
@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
 const SPACING = (width - CARD_WIDTH) / 4;
 
-const Principal = () => {
+const Principal = ({ selectedCities }) => {
   const [activeIndex, setActiveIndex] = useState(1);
   const cards = [
     { type: 'city', key: 'city1' },
@@ -56,15 +56,15 @@ const Principal = () => {
             ]}
           >
             {type === 'weather' ? (
-              <>
-                <WeatherCard ciudad="New York" />
-                <WeatherCard ciudad="Buenos Aires" />
-                <WeatherCard ciudad="Córdoba" />
-                <WeatherCard ciudad="Mendoza" />
-                {/* Puedes agregar más WeatherCard aquí con diferentes ciudades */}
-              </>
+              selectedCities && selectedCities.length > 0 ? (
+                selectedCities.map((city, index) => (
+                  <WeatherCard key={index} ciudad={city} />
+                ))
+              ) : (
+                <Text>No hay ciudades seleccionadas</Text> // Correcto
+              )
             ) : (
-              <CityCard />
+              <CityCard /> // Asegúrate de que CityCard no tenga texto suelto
             )}
           </View>
         ))}

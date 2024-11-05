@@ -1,10 +1,10 @@
-// App.js
 import React, { useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import CitySelection from '../components/cityselection';
 import SearchBar from '../components/searchbar';
+import Principal from './principal'; // Asegúrate de que la ruta sea correcta
 
-const App = ({ onSelectedCitiesChange }) => {
+const App = () => {
   const initialCitySelection = [
     { ciudad: 'Buenos Aires' },
     { ciudad: 'Córdoba' },
@@ -15,7 +15,7 @@ const App = ({ onSelectedCitiesChange }) => {
 
   const [citySelection, setCitySelection] = useState(initialCitySelection);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCities, setSelectedCities] = useState([]);
+  const [selectedCities, setSelectedCities] = useState(['']); // Inicializa como un array vacío
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -45,18 +45,6 @@ const App = ({ onSelectedCitiesChange }) => {
     city.ciudad.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Exportamos cada ciudad seleccionada en una variable individual.
-  const city1 = selectedCities[0] || null;
-  const city2 = selectedCities[1] || null;
-  const city3 = selectedCities[2] || null;
-
-  // Llamamos a la función de callback cuando cambian las ciudades seleccionadas
-  React.useEffect(() => {
-    if (onSelectedCitiesChange) {
-      onSelectedCitiesChange({ city1, city2, city3 });
-    }
-  }, [city1, city2, city3, onSelectedCitiesChange]);
-
   return (
     <View style={styles.container}>
       <SearchBar
@@ -76,6 +64,7 @@ const App = ({ onSelectedCitiesChange }) => {
         )}
         keyExtractor={item => item.ciudad}
       />
+      <Principal selectedCities={selectedCities || []} /> 
     </View>
   );
 };
