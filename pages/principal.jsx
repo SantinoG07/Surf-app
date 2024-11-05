@@ -1,25 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import Weathercard from '../components/weathercard';
-import Citycard from '../components/citycard';
+import WeatherCard from '../components/weathercard'; // Asegúrate de que la ruta sea correcta
+import CityCard from '../components/citycard';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
 const SPACING = (width - CARD_WIDTH) / 4;
 
 const Principal = () => {
-  const [activeIndex, setActiveIndex] = useState(1); 
+  const [activeIndex, setActiveIndex] = useState(1);
   const cards = [
     { type: 'city', key: 'city1' },
     { type: 'weather', key: 'weather' },
     { type: 'city', key: 'city2' },
   ];
-  
+
   const scrollViewRef = useRef(null);
 
   useEffect(() => {
-    
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollTo({ x: CARD_WIDTH, animated: false });
     }
@@ -50,11 +49,23 @@ const Principal = () => {
             key={key}
             style={[
               styles.cardContainer,
-              { opacity: index === activeIndex ? 1 : 0.7,
-                transform: [{ scale: index === activeIndex ? 1 : 0.9 }] }
+              {
+                opacity: index === activeIndex ? 1 : 0.7,
+                transform: [{ scale: index === activeIndex ? 1 : 0.9 }],
+              },
             ]}
           >
-            {type === 'weather' ? <Weathercard /> : <Citycard />}
+            {type === 'weather' ? (
+              <>
+                <WeatherCard ciudad="New York" />
+                <WeatherCard ciudad="Buenos Aires" />
+                <WeatherCard ciudad="Córdoba" />
+                <WeatherCard ciudad="Mendoza" />
+                {/* Puedes agregar más WeatherCard aquí con diferentes ciudades */}
+              </>
+            ) : (
+              <CityCard />
+            )}
           </View>
         ))}
       </ScrollView>
@@ -67,12 +78,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#3f3f3f'
+    backgroundColor: '#3f3f3f',
   },
   scrollView: {
     paddingHorizontal: SPACING,
     marginTop: -460,
-    marginBottom: -340
+    marginBottom: -340,
   },
   cardContainer: {
     width: CARD_WIDTH,
