@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
 const SPACING = (width - CARD_WIDTH) / 4;
 
-const Principal = ({ selectedCities }) => {
+const Principal = ({ selectedCities = [] }) => { // Valor por defecto
   const [activeIndex, setActiveIndex] = useState(1);
   const cards = [
     { type: 'city', key: 'city1' },
@@ -47,24 +47,21 @@ const Principal = ({ selectedCities }) => {
         {cards.map(({ type, key }, index) => (
           <View
             key={key}
-            style={[
-              styles.cardContainer,
-              {
-                opacity: index === activeIndex ? 1 : 0.7,
-                transform: [{ scale: index === activeIndex ? 1 : 0.9 }],
-              },
-            ]}
+            style={[styles.cardContainer, {
+              opacity: index === activeIndex ? 1 : 0.7,
+              transform: [{ scale: index === activeIndex ? 1 : 0.9 }],
+            }]}
           >
             {type === 'weather' ? (
-              selectedCities && selectedCities.length > 0 ? (
+              selectedCities.length > 0 ? (
                 selectedCities.map((city, index) => (
                   <WeatherCard key={index} ciudad={city} />
                 ))
               ) : (
-                <Text>No hay ciudades seleccionadas</Text> // Correcto
+                <Text>No hay ciudades seleccionadas</Text> // Mensaje para indicar que no hay ciudades
               )
             ) : (
-              <CityCard /> // Asegúrate de que CityCard no tenga texto suelto
+              <CityCard />
             )}
           </View>
         ))}
