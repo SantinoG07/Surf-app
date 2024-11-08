@@ -8,10 +8,7 @@ const { width, height } = Dimensions.get('window');
 const CustomMarker = ({ onPress }) => {
   return (
     <View style={styles.markerContainer}>
-      <Image
-        source={require('../assets/logo.png')} // Asegúrate de que esta ruta sea correcta
-        style={styles.markerImage}
-      />
+      
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.markerBubble}>
           <Text style={styles.markerTitle}>Your Location</Text>

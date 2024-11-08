@@ -24,7 +24,7 @@ const CustomDrawerContent = ({ navigation }) => {
 
   return (
     <View style={styles.drawerContent}>
-      <Image source={require('./assets/logo.png')} style={styles.logo} />
+      
       <TouchableOpacity 
         onPress={() => handleNavigation("Principal")} 
         style={[styles.drawerItem, activeScreen === "Principal" && styles.activeDrawerItem]} 
