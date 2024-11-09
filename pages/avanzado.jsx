@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { View, Text } from "react-native";
 import BarGraphics from "../components/bargraphics"
+import BarGraphics1 from "../components/bargraphics1"
 
 const Avanzado = () => {
   return (
@@ -8,6 +9,7 @@ const Avanzado = () => {
       <Text>Página Principal</Text>
       <StatusBar style="light" />
       <BarGraphics/>
+      <BarGraphics1/>
     </View>
   );
 };
