@@ -9,7 +9,7 @@ const WeatherForecast = () => {
   const [error, setError] = useState('');
 
   const apiKey = 'e3ca4788ae9a4b04b5a170108241810';
-  const location = 'Mar Del Plata';
+  const location = 'Buenos Aires';
 
   useEffect(() => {
     axios

@@ -1,11 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-const data = [20, 45, 28, 80, 99, 43];
-const maxValue = Math.max(...data);
+import axios from 'axios';
 
 const App = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const apiKey = 'e3ca4788ae9a4b04b5a170108241810';
+  const location = 'Buenos Aires';
+
+  useEffect(() => {
+    axios
+      .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=6`)
+      .then((response) => {
+        const forecastData = response.data.forecast.forecastday.map(day => day.day.daily_chance_of_rain);
+        setData(forecastData);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError('Error al cargar el pronóstico');
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>{error}</Text>;
+  }
+
+  const maxValue = Math.max(...data);
+
   return (
     <View style={styles.container}>
       <View style={styles.chartContainer}>
@@ -18,10 +47,9 @@ const App = () => {
                 end={{ x: 0, y: 0 }}
                 style={styles.label}
               >
-                <Text style={styles.labelText}>{data[index]}</Text>
+                <Text style={styles.labelText}>{value}%</Text>
               </LinearGradient>
             </View>
-
             <View
               style={[
                 styles.bar,
@@ -45,13 +73,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(53,53,53,1.000)',
   },
   chartContainer: {
-
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-end',
     width: Dimensions.get('window').width - 20,
     height: 220,
-    paddingTop:70,
+    paddingTop: 70,
     padding: 10,
     backgroundColor: '#353535',
     borderRadius: 16,
@@ -73,9 +100,9 @@ const styles = StyleSheet.create({
   },
   label: {
     borderRadius: 15,
-    paddingTop:10,
+    paddingTop: 10,
     paddingHorizontal: 10,
-    paddingVertical:10,
+    paddingVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },

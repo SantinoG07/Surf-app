@@ -5,12 +5,13 @@ import WeatherCard from '../components/weathercard'; // Asegúrate de que la rut
 import CityCard from '../components/citycard';
 import UVIndex from "../components/indiceuv";
 import WeatherForecast from "../components/weatherforecast";
+import BarGraphics from "../components/bargraphics1"
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
 const SPACING = (width - CARD_WIDTH) / 4;
 
-const Principal = ({ selectedCities = [] }) => { // Valor por defecto
+const Principal = ({ selectedCities = ['Buenos Aires'] }) => { 
   const [activeIndex, setActiveIndex] = useState(1);
   const cards = [
     { type: 'city', key: 'city1' },
@@ -33,13 +34,15 @@ const Principal = ({ selectedCities = [] }) => { // Valor por defecto
   };
 
   return (
-    <View style={styles.container}>
+    // Agregado ScrollView para habilitar el scroll vertical
+    <ScrollView style={styles.container} contentContainerStyle={styles.scrollView}>
       <StatusBar style="light" />
+      
       <ScrollView
         ref={scrollViewRef}
         horizontal={true}
         pagingEnabled
-        contentContainerStyle={styles.scrollView}
+        contentContainerStyle={styles.scrollViewInner}
         snapToInterval={CARD_WIDTH}
         snapToAlignment="center"
         onScroll={handleScroll}
@@ -52,8 +55,7 @@ const Principal = ({ selectedCities = [] }) => { // Valor por defecto
             style={[styles.cardContainer, {
               opacity: index === activeIndex ? 1 : 0.7,
               transform: [{ scale: index === activeIndex ? 1 : 0.9 }],
-            }]}
-          >
+            }]}>
             {type === 'weather' ? (
               selectedCities.length > 0 ? (
                 selectedCities.map((city, index) => (
@@ -68,40 +70,42 @@ const Principal = ({ selectedCities = [] }) => { // Valor por defecto
           </View>
         ))}
       </ScrollView>
-      <Text style={styles.title}>Pronostico</Text>
 
-      <WeatherForecast/>
+      <Text style={styles.title}>Pronostico</Text>
+      <WeatherForecast />
 
       <View style={styles.row}>
-      <UVIndex />
+        <UVIndex />
       </View>
-    </View>
+      <BarGraphics />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  title:{
+  title: {
     fontSize: 18,
     color: '#1e6fc7',
     marginBottom: 10,
   },
   row: {
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 20,
-    marginBottom: 20, 
+    marginBottom: 20,
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#3f3f3f',
   },
   scrollView: {
+    flexGrow: 1, // Permite que el contenido crezca y se pueda desplazar
+    alignItems: 'center', // Alinea todo el contenido al centro
+    paddingBottom: 20, // Agrega un poco de espacio al final para evitar que se corte el último elemento
+  },
+  scrollViewInner: {
     paddingHorizontal: SPACING,
-    marginTop: -400,
-    marginBottom: -340,
   },
   cardContainer: {
     width: CARD_WIDTH,
