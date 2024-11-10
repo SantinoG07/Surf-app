@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     width:180,
     marginTop: 20,
     alignItems: 'center',
+    margin:10,
   },
 });
 
