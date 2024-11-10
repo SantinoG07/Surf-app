@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions, Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import WeatherCard from '../components/weathercard'; // Asegúrate de que la ruta sea correcta
+import WeatherCard from '../components/weathercard';
 import CityCard from '../components/citycard';
 import UVIndex from "../components/indiceuv";
 import WeatherForecast from "../components/weatherforecast";
-import BarGraphics from "../components/bargraphics1"
+import BarGraphics from "../components/bargraphics1";
+import WindDir from "../components/windir";
+import WinSpeed from "../components/windspeed";
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
@@ -55,6 +57,7 @@ const Principal = ({ selectedCities = ['Buenos Aires'] }) => {
               opacity: index === activeIndex ? 1 : 0.7,
               transform: [{ scale: index === activeIndex ? 1 : 0.9 }],
             }]}>
+
             {type === 'weather' ? (
               selectedCities.length > 0 ? (
                 selectedCities.map((city, index) => (
@@ -69,12 +72,18 @@ const Principal = ({ selectedCities = ['Buenos Aires'] }) => {
           </View>
         ))}
       </ScrollView>
+
       <Text style={styles.title}>Pronostico</Text>
       <WeatherForecast />
 
-      <BarGraphics/>
-      <UVIndex/>
-      
+      <BarGraphics />
+
+      <View style={styles.row}>
+        <WindDir />
+        <WinSpeed />
+      </View>
+
+      <UVIndex />
     </ScrollView>
   );
 };
@@ -87,7 +96,7 @@ const styles = StyleSheet.create({
     marginTop:60,
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: 'row',  
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 20,

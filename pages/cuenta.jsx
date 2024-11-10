@@ -42,7 +42,7 @@ const Cuenta = () => {
     <View style={{backgroundColor:'#3f3f3f', flex:1, alignItems:'center'}}>
       <StatusBar style="light" />
       
-      <Image source={require("../assets/cuenta.png")} style={styles.logo}/>
+      <Image source={require("../assets/perfil.png")} style={styles.logo}/>
       <Text style={styles.nombre}>Usuario</Text>
       <Text style={styles.ciudad}>Buenos Aires</Text>
 
