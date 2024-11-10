@@ -16,21 +16,54 @@ const ChartComponent = ({ tideData }) => {
     legend: ["Altura del mar"],
   });
 
+  const API_KEY = 'e3ca4788ae9a4b04b5a170108241810'; 
+  const CITY_NAME = 'Buenos Aires'; 
+
   useEffect(() => {
-    if (tideData && tideData.length > 0) {
-      setChartData({
-        labels: tideData.map(entry => entry.time),
-        datasets: [
-          {
-            data: tideData.map(entry => entry.height),
-            color: () => `rgba(30, 111, 199, 1)`,
-            strokeWidth: 2,
-          },
-        ],
-        legend: ["Altura del mar"],
-      });
-    }
-  }, [tideData]);
+    const fetchWeatherData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${CITY_NAME}&days=1&hourly=tide`
+        );
+        const data = await response.json();
+    
+        // Verifica la respuesta completa para ver los datos que devuelve
+        console.log(data);
+    
+        // Verifica si los datos están en el formato esperado
+        if (data.forecast && data.forecast.forecastday && data.forecast.forecastday[0].hour) {
+          const tideData = data.forecast.forecastday[0].hour.map(hour => ({
+            time: hour.time.split(' ')[1], // Extrae solo la hora
+            height: hour.tide_height || 0, // Agrega un valor por defecto si no existe
+          }));
+    
+          // Limitar el número de puntos en el gráfico para evitar la superposición de etiquetas
+          const limitedTideData = tideData.filter((entry, index) => index % 2 === 0); // Muestra solo cada segundo dato
+    
+          // Verifica si hay datos antes de actualizar el gráfico
+          if (limitedTideData.length > 0) {
+            setChartData({
+              labels: limitedTideData.map(entry => entry.time),
+              datasets: [
+                {
+                  data: limitedTideData.map(entry => entry.height),
+                  color: () => `rgba(30, 111, 199, 1)`,
+                  strokeWidth: 2,
+                },
+              ],
+              legend: ["Altura del mar"],
+            });
+          }
+        } else {
+          console.error("Datos de mareas no encontrados en la respuesta de la API.");
+        }
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
+    };
+    
+    fetchWeatherData();
+  }, []);
 
   const handleDataPointClick = (data) => {
     setTooltipPos({
@@ -51,8 +84,8 @@ const ChartComponent = ({ tideData }) => {
         chartConfig={chartConfig}
         withShadow={false}
         withInnerLines={false}
-        withVerticalLabels={true} 
-        withHorizontalLabels={false} 
+        withVerticalLabels={true}
+        withHorizontalLabels={false}
         bezier
         onDataPointClick={handleDataPointClick}
         style={styles.chart}

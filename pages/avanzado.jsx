@@ -3,19 +3,22 @@ import { View, StyleSheet } from "react-native";
 import React from 'react';
 import Windir from "../components/windir";
 import WindSpeed from "../components/windspeed";
-import UVIndex from "../components/indiceuv";
+import PointGraphic from "../components/pointgraphics"
 
 const Avanzado = () => {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
 
+      <View>
+      <PointGraphic/>
+      </View>
+
       <View style={styles.row}>
         <Windir />
         <WindSpeed />
       </View>
       <View>
-      <UVIndex />
 
       </View>
     </View>

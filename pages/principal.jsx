@@ -3,6 +3,8 @@ import { View, ScrollView, StyleSheet, Dimensions, Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import WeatherCard from '../components/weathercard'; // Asegúrate de que la ruta sea correcta
 import CityCard from '../components/citycard';
+import UVIndex from "../components/indiceuv";
+import WeatherForecast from "../components/weatherforecast";
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.4;
@@ -35,7 +37,7 @@ const Principal = ({ selectedCities = [] }) => { // Valor por defecto
       <StatusBar style="light" />
       <ScrollView
         ref={scrollViewRef}
-        horizontal
+        horizontal={true}
         pagingEnabled
         contentContainerStyle={styles.scrollView}
         snapToInterval={CARD_WIDTH}
@@ -66,11 +68,30 @@ const Principal = ({ selectedCities = [] }) => { // Valor por defecto
           </View>
         ))}
       </ScrollView>
+      <Text style={styles.title}>Pronostico</Text>
+
+      <WeatherForecast/>
+
+      <View style={styles.row}>
+      <UVIndex />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  title:{
+    fontSize: 18,
+    color: '#1e6fc7',
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    width: '100%',
+    paddingHorizontal: 20,
+    marginBottom: 20, 
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -79,7 +100,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     paddingHorizontal: SPACING,
-    marginTop: -460,
+    marginTop: -400,
     marginBottom: -340,
   },
   cardContainer: {
