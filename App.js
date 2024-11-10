@@ -9,7 +9,6 @@ import Principal from "./pages/principal";
 import Cuenta from "./pages/cuenta";
 import Mapa from "./pages/mapa";
 import Lugares from "./pages/lugares";
-import Avanzado from "./pages/avanzado";
 
 
 const Menu = createDrawerNavigator();
@@ -31,14 +30,6 @@ const CustomDrawerContent = ({ navigation }) => {
       >
         <Image source={require('./assets/principal.png')} style={styles.icono} />
         <Text style={styles.drawerText}>Principal</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity 
-        onPress={() => handleNavigation("Avanzado")} 
-        style={[styles.drawerItem, activeScreen === "Avanzado" && styles.activeDrawerItem]} 
-      >
-        <Image source={require('./assets/avanzado.png')} style={styles.icono} />
-        <Text style={styles.drawerText}>Avanzado</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
@@ -83,7 +74,6 @@ export default function App() {
           }}
         >
           <Menu.Screen name="Principal" component={Principal} />
-          <Menu.Screen name="Avanzado" component={Avanzado} />
           <Menu.Screen name="Lugares" component={Lugares} />
           <Menu.Screen name="Mapa" component={Mapa} />
           <Menu.Screen name="Cuenta" component={Cuenta} />
