@@ -37,6 +37,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+        <Text style={styles.title}>Probabilidad de lluvia en los proximos dias</Text>
       <View style={styles.chartContainer}>
         {data.map((value, index) => (
           <View key={index} style={styles.barContainer}>
@@ -66,23 +67,30 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 18,
+    color: '#1e6fc7',
+    marginBottom: 10,
+    marginTop:13,
+  },
   container: {
     flex: 1,
+    marginTop:100,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(53,53,53,1.000)',
+    borderRadius: 16,
   },
   chartContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-end',
     width: Dimensions.get('window').width - 20,
-    height: 220,
+    height: 210,
     paddingTop: 70,
-    padding: 10,
-    backgroundColor: '#353535',
-    borderRadius: 16,
-    marginTop: 300,
+    padding: 10, 
+    backgroundColor: '#fffff',
+    marginTop: 0,
   },
   barContainer: {
     alignItems: 'center',

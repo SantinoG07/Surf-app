@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Dimensions, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Dimensions, Text, TouchableWithoutFeedback } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
@@ -8,7 +8,6 @@ const { width, height } = Dimensions.get('window');
 const CustomMarker = ({ onPress }) => {
   return (
     <View style={styles.markerContainer}>
-      
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.markerBubble}>
           <Text style={styles.markerTitle}>Your Location</Text>
@@ -37,7 +36,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      {currentLocation && (
+      {currentLocation ? (
         <MapView
           style={styles.map}
           initialRegion={{
@@ -50,12 +49,14 @@ const App = () => {
         >
           <Marker
             coordinate={currentLocation}
-            onPress={() => {}}
+            onPress={() => console.log("Marker pressed")}
             anchor={{ x: 0.5, y: 1 }} // Ajusta el anclaje del marcador
           >
-            <CustomMarker />
+            <CustomMarker onPress={() => alert('You pressed the marker!')} />
           </Marker>
         </MapView>
+      ) : (
+        <Text>Loading your location...</Text> // Muestra un mensaje mientras se obtiene la ubicación
       )}
     </View>
   );
@@ -74,9 +75,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   markerImage: {
-    width: 40, // Ajusta el tamaño de la imagen
+    width: 40,
     height: 40,
-    borderRadius: 20, // Hace que la imagen sea circular
+    borderRadius: 20,
   },
   markerBubble: {
     backgroundColor: 'white',

@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 15,
     margin: 10, 
+    marginLeft:36,
   },
   icono: {
     width: 80,

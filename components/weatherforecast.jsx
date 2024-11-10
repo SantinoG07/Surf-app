@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 0,
     height: 280,
-    marginBottom: -215,
+    marginBottom: 0,
     flexDirection: 'row',
   },
   card: {

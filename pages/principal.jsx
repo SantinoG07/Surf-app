@@ -34,7 +34,6 @@ const Principal = ({ selectedCities = ['Buenos Aires'] }) => {
   };
 
   return (
-    // Agregado ScrollView para habilitar el scroll vertical
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollView}>
       <StatusBar style="light" />
       
@@ -62,7 +61,7 @@ const Principal = ({ selectedCities = ['Buenos Aires'] }) => {
                   <WeatherCard key={index} ciudad={city} />
                 ))
               ) : (
-                <Text>No hay ciudades seleccionadas</Text> // Mensaje para indicar que no hay ciudades
+                <Text>No hay ciudades seleccionadas</Text> 
               )
             ) : (
               <CityCard />
@@ -70,14 +69,12 @@ const Principal = ({ selectedCities = ['Buenos Aires'] }) => {
           </View>
         ))}
       </ScrollView>
-
       <Text style={styles.title}>Pronostico</Text>
       <WeatherForecast />
 
-      <View style={styles.row}>
-        <UVIndex />
-      </View>
-      <BarGraphics />
+      <BarGraphics/>
+      <UVIndex/>
+      
     </ScrollView>
   );
 };
@@ -87,6 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#1e6fc7',
     marginBottom: 10,
+    marginTop:60,
   },
   row: {
     flexDirection: 'row',
@@ -98,11 +96,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3f3f3f',
+    paddingTop:30,
   },
   scrollView: {
-    flexGrow: 1, // Permite que el contenido crezca y se pueda desplazar
-    alignItems: 'center', // Alinea todo el contenido al centro
-    paddingBottom: 20, // Agrega un poco de espacio al final para evitar que se corte el último elemento
+    flexGrow: 1, 
+    alignItems: 'center', 
+    paddingBottom: 20, 
+    backgroundColor: '#3f3f3f',
   },
   scrollViewInner: {
     paddingHorizontal: SPACING,
