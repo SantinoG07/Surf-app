@@ -10,8 +10,8 @@ import WindDir from "../components/windir";
 import WinSpeed from "../components/windspeed";
 
 const { width } = Dimensions.get('window');
-const CARD_WIDTH = width * 0.7;
-const SPACING = (width - CARD_WIDTH) / 25;
+const CARD_WIDTH = width * 0.4;
+const SPACING = (width - CARD_WIDTH) / 4;
 
 const Principal = ({ selectedCities = ['Buenos Aires'] }) => { 
   const [activeIndex, setActiveIndex] = useState(1);
@@ -47,7 +47,7 @@ const Principal = ({ selectedCities = ['Buenos Aires'] }) => {
         snapToInterval={CARD_WIDTH}
         snapToAlignment="center"
         onScroll={handleScroll}
-        scrollEventThrottle={100}
+        scrollEventThrottle={1000}
         showsHorizontalScrollIndicator={false}
       >
         {cards.map(({ type, key }, index) => (
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3f3f3f',
   },
   scrollViewInner: {
-    paddingHorizontal: SPACING,
+    paddingHorizontal: 50,
   },
   cardContainer: {
     width: CARD_WIDTH,

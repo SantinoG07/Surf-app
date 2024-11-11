@@ -2,18 +2,40 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
+import * as Location from 'expo-location'; 
 
 const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [location, setLocation] = useState(null); 
 
   const apiKey = 'e3ca4788ae9a4b04b5a170108241810';
-  const location = 'Buenos Aires';
+
+  const getLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setError('Permiso de ubicación denegado');
+        setLoading(false);
+        return;
+      }
+      const userLocation = await Location.getCurrentPositionAsync({});
+      setLocation(userLocation.coords); 
+    } catch (err) {
+      setError('No se pudo obtener la ubicación');
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
+    getLocation();
+  }, []);
+
+  useEffect(() => {
+    if (!location) return; 
     axios
-      .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=6`)
+      .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location.latitude},${location.longitude}&days=6`)
       .then((response) => {
         const forecastData = response.data.forecast.forecastday.map(day => day.day.daily_chance_of_rain);
         setData(forecastData);
@@ -23,21 +45,21 @@ const App = () => {
         setError('Error al cargar el pronóstico');
         setLoading(false);
       });
-  }, []);
+  }, [location]); 
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <Text style={styles.loadingText}>Cargando...</Text>;
   }
 
   if (error) {
-    return <Text>{error}</Text>;
+    return <Text style={styles.errorText}>{error}</Text>;
   }
 
   const maxValue = Math.max(...data);
 
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Probabilidad de lluvia en los proximos dias</Text>
+      <Text style={styles.title}>Probabilidad de lluvia en los próximos días</Text>
       <View style={styles.chartContainer}>
         {data.map((value, index) => (
           <View key={index} style={styles.barContainer}>
@@ -71,11 +93,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#1e6fc7',
     marginBottom: 10,
-    marginTop:13,
+    marginTop: 13,
   },
   container: {
     flex: 1,
-    marginTop:100,
+    marginTop: 100,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(53,53,53,1.000)',
@@ -88,7 +110,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width - 20,
     height: 210,
     paddingTop: 70,
-    padding: 10, 
+    padding: 10,
     backgroundColor: '#fffff',
     marginTop: 0,
   },
@@ -118,6 +140,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 12,
+  },
+  loadingText: {
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
 
