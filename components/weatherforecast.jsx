@@ -13,7 +13,7 @@ const WeatherForecast = () => {
 
   useEffect(() => {
     axios
-      .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=4`)
+      .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`)
       .then((response) => {
         setForecast(response.data.forecast.forecastday);
         setLoading(false);
@@ -36,15 +36,21 @@ const WeatherForecast = () => {
     <ScrollView
       contentContainerStyle={styles.container}
       horizontal
-      showsHorizontalScrollIndicator={false} // Oculta la barra de desplazamiento horizontal
+      showsHorizontalScrollIndicator={false} 
     >
-      {forecast.map((day, index) => (
-        <LinearGradient key={index} colors={['#393939', '#393939']} style={styles.card}>
-          <Image style={styles.icon} source={{ uri: `https:${day.day.condition.icon}` }} />
-          <Text style={styles.temp}>Max: {day.day.maxtemp_c}°C</Text>
-          <Text style={styles.temp}>Min: {day.day.mintemp_c}°C</Text>
-        </LinearGradient>
-      ))}
+      {forecast.map((day, index) => {
+        const dateParts = day.date.split('-'); // Formato "YYYY-MM-DD"
+        const formattedDate = `${dateParts[2]}/${dateParts[1]}`; // Solo día y mes
+
+        return (
+          <LinearGradient key={index} colors={['#393939', '#393939']} style={styles.card}>
+            <Text style={styles.date}>{formattedDate}</Text>
+            <Image style={styles.icon} source={{ uri: `https:${day.day.condition.icon}` }} />
+            <Text style={styles.temp}>Max: {day.day.maxtemp_c}°C</Text>
+            <Text style={styles.temp}>Min: {day.day.mintemp_c}°C</Text>
+          </LinearGradient>
+        );
+      })}
     </ScrollView>
   );
 };
@@ -52,12 +58,12 @@ const WeatherForecast = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 0,
-    height: 280,
+    height: 300,
     marginBottom: 0,
     flexDirection: 'row',
   },
   card: {
-    width: 220,
+    width: 100,
     borderRadius: 25,
     padding: 15,
     margin: 10,

@@ -39,17 +39,17 @@ const WeatherCard = ({ ciudad }) => {
 
 const styles = StyleSheet.create({
   view: {
-    width: 300,
+    width: 140,
     borderRadius: 25,
     padding: 15,
     margin: 10, 
     height:200,
-    marginLeft:36,
+    marginLeft:0,
   },
   icono: {
     width: 98,
     height: 98,
-    marginLeft: 15,
+    marginLeft: -10,
   },
   ciudad: {
     paddingLeft: 13,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   temperatura: {
     paddingLeft: 13,
-    fontSize: 29,
+    fontSize: 20,
     color: "white",
   },
 });

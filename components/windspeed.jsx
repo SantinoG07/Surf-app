@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     paddingBottom:19,
     borderRadius:22,
     height:190,
-    width:180,
+    width:120,
     marginTop: 0,
     alignItems: 'center',
     margin:10,

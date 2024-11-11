@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text, Dimensions } from 'react-native';
 import CitySelection from '../components/cityselection';
 import SearchBar from '../components/searchbar';
-import Principal from './principal'; // Asegúrate de que la ruta sea correcta
+import WeatherCard from '../components/weathercard1'; // Asegúrate de que la ruta sea correcta
+import CityCard from '../components/citycard'; // Asegúrate de que la ruta sea correcta
+
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = width * 0.1;
+const SPACING = (width - CARD_WIDTH) / 10;
 
 const App = () => {
+  const [activeIndex] = useState(1); 
+  const cards = [
+    { type: 'weather', key: 'weather' },
+  ];
+
   const initialCitySelection = [
     { ciudad: 'Buenos Aires' },
     { ciudad: 'Córdoba' },
@@ -15,7 +25,7 @@ const App = () => {
 
   const [citySelection, setCitySelection] = useState(initialCitySelection);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCities, setSelectedCities] = useState(['']); // Inicializa como un array vacío
+  const [selectedCities, setSelectedCities] = useState([]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -64,7 +74,27 @@ const App = () => {
         )}
         keyExtractor={item => item.ciudad}
       />
-      <Principal selectedCities={selectedCities || []} /> 
+
+      {cards.map(({ type, key }, index) => (
+        <View
+          key={key}
+          style={[styles.cardContainer, {
+            opacity: index === activeIndex ? 1 : 0.7,
+            transform: [{ scale: index === activeIndex ? 1 : 0.9 }],
+          }]}>
+          {type === 'weather' ? (
+            selectedCities.length > 0 ? (
+              selectedCities.map((city, index) => (
+                <WeatherCard key={index} ciudad={city} />
+              ))
+            ) : (
+              <Text style={styles.noSelectionText}>No hay ciudades seleccionadas</Text>
+            )
+          ) : (
+            <CityCard />
+          )}
+        </View>
+      ))}
     </View>
   );
 };
@@ -76,6 +106,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#282828',
     padding: 20,
+    paddingBottom:120,
+    
+  },
+  cardContainer: {
+    width: CARD_WIDTH,
+    marginHorizontal: SPACING / 2,
+    alignItems: 'center',
+    flexDirection:'row',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  noSelectionText: {
+    color: 'white',
+    fontSize: 18,
+    marginTop: 20,
   },
 });
 

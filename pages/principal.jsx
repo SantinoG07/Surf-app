@@ -10,8 +10,8 @@ import WindDir from "../components/windir";
 import WinSpeed from "../components/windspeed";
 
 const { width } = Dimensions.get('window');
-const CARD_WIDTH = width * 0.4;
-const SPACING = (width - CARD_WIDTH) / 4;
+const CARD_WIDTH = width * 0.7;
+const SPACING = (width - CARD_WIDTH) / 25;
 
 const Principal = ({ selectedCities = ['Buenos Aires'] }) => { 
   const [activeIndex, setActiveIndex] = useState(1);
@@ -81,9 +81,9 @@ const Principal = ({ selectedCities = ['Buenos Aires'] }) => {
       <View style={styles.row}>
         <WindDir />
         <WinSpeed />
+      <UVIndex />
       </View>
 
-      <UVIndex />
     </ScrollView>
   );
 };
@@ -96,10 +96,10 @@ const styles = StyleSheet.create({
     marginTop:60,
   },
   row: {
+    marginTop:20,
     flexDirection: 'row',  
-    justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: 2,
     marginBottom: 20,
   },
   container: {
